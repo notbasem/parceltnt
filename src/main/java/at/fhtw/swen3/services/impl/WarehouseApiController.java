@@ -1,8 +1,8 @@
 package at.fhtw.swen3.services.impl;
 
 
-import at.fhtw.swen3.persistence.Hop;
-import at.fhtw.swen3.persistence.Warehouse;
+import at.fhtw.swen3.services.dto.Hop;
+import at.fhtw.swen3.services.dto.Warehouse;
 import at.fhtw.swen3.services.ApiUtil;
 import at.fhtw.swen3.services.WarehouseApi;
 import io.swagger.v3.oas.annotations.Parameter;
