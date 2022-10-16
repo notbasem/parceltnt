@@ -1,87 +1,91 @@
 package at.fhtw.swen3.services.mapper;
 
+import at.fhtw.swen3.persistence.entity.HopArrivalEntity;
+import at.fhtw.swen3.persistence.entity.ParcelEntity;
+import at.fhtw.swen3.persistence.entity.RecipientEntity;
+import at.fhtw.swen3.services.dto.HopArrival;
 import at.fhtw.swen3.services.dto.NewParcelInfo;
 import at.fhtw.swen3.services.dto.Parcel;
 import at.fhtw.swen3.services.dto.Recipient;
 import at.fhtw.swen3.services.dto.TrackingInformation;
+import java.util.ArrayList;
+import java.util.List;
 import javax.annotation.Generated;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2022-10-12T14:56:18+0200",
+    date = "2022-10-17T00:10:07+0200",
     comments = "version: 1.4.2.Final, compiler: javac, environment: Java 17.0.2 (Oracle Corporation)"
 )
 public class ParcelMapperImpl implements ParcelMapper {
 
     @Override
-    public at.fhtw.swen3.persistence.entity.Parcel dtoToEntity(Parcel parcel, NewParcelInfo newParcelInfo, TrackingInformation trackingInformation) {
+    public ParcelEntity dtoToEntity(Parcel parcel, NewParcelInfo newParcelInfo, TrackingInformation trackingInformation) {
         if ( parcel == null && newParcelInfo == null && trackingInformation == null ) {
             return null;
         }
 
-        at.fhtw.swen3.persistence.entity.Parcel parcel1 = new at.fhtw.swen3.persistence.entity.Parcel();
+        ParcelEntity parcelEntity = new ParcelEntity();
 
         if ( parcel != null ) {
             if ( parcel.getWeight() != null ) {
-                parcel1.setWeight( parcel.getWeight() );
+                parcelEntity.setWeight( parcel.getWeight() );
             }
-            parcel1.setRecipient( recipientToRecipient( parcel.getRecipient() ) );
-            parcel1.setSender( recipientToRecipient( parcel.getSender() ) );
+            parcelEntity.setSender( recipientToRecipientEntity( parcel.getSender() ) );
+            parcelEntity.setRecipient( recipientToRecipientEntity( parcel.getRecipient() ) );
         }
         if ( newParcelInfo != null ) {
-            parcel1.setTrackingId( newParcelInfo.getTrackingId() );
+            parcelEntity.setTrackingId( newParcelInfo.getTrackingId() );
         }
         if ( trackingInformation != null ) {
-            parcel1.setState( trackingInformation.getState() );
+            parcelEntity.setState( trackingInformation.getState() );
+            parcelEntity.setVisitedHops( hopArrivalListToHopArrivalEntityList( trackingInformation.getVisitedHops() ) );
+            parcelEntity.setFutureHops( hopArrivalListToHopArrivalEntityList( trackingInformation.getFutureHops() ) );
         }
 
-        return parcel1;
+        return parcelEntity;
     }
 
-    @Override
-    public Parcel entityToParcelDto(at.fhtw.swen3.persistence.entity.Parcel parcel) {
-        if ( parcel == null ) {
-            return null;
-        }
-
-        Parcel parcel1 = new Parcel();
-
-        parcel1.setWeight( parcel.getWeight() );
-        parcel1.setRecipient( recipientToRecipient1( parcel.getRecipient() ) );
-        parcel1.setSender( recipientToRecipient1( parcel.getSender() ) );
-
-        return parcel1;
-    }
-
-    protected at.fhtw.swen3.persistence.entity.Recipient recipientToRecipient(Recipient recipient) {
+    protected RecipientEntity recipientToRecipientEntity(Recipient recipient) {
         if ( recipient == null ) {
             return null;
         }
 
-        at.fhtw.swen3.persistence.entity.Recipient recipient1 = new at.fhtw.swen3.persistence.entity.Recipient();
+        RecipientEntity recipientEntity = new RecipientEntity();
 
-        recipient1.setName( recipient.getName() );
-        recipient1.setStreet( recipient.getStreet() );
-        recipient1.setPostalCode( recipient.getPostalCode() );
-        recipient1.setCity( recipient.getCity() );
-        recipient1.setCountry( recipient.getCountry() );
+        recipientEntity.setName( recipient.getName() );
+        recipientEntity.setStreet( recipient.getStreet() );
+        recipientEntity.setPostalCode( recipient.getPostalCode() );
+        recipientEntity.setCity( recipient.getCity() );
+        recipientEntity.setCountry( recipient.getCountry() );
 
-        return recipient1;
+        return recipientEntity;
     }
 
-    protected Recipient recipientToRecipient1(at.fhtw.swen3.persistence.entity.Recipient recipient) {
-        if ( recipient == null ) {
+    protected HopArrivalEntity hopArrivalToHopArrivalEntity(HopArrival hopArrival) {
+        if ( hopArrival == null ) {
             return null;
         }
 
-        Recipient recipient1 = new Recipient();
+        HopArrivalEntity hopArrivalEntity = new HopArrivalEntity();
 
-        recipient1.setName( recipient.getName() );
-        recipient1.setStreet( recipient.getStreet() );
-        recipient1.setPostalCode( recipient.getPostalCode() );
-        recipient1.setCity( recipient.getCity() );
-        recipient1.setCountry( recipient.getCountry() );
+        hopArrivalEntity.setCode( hopArrival.getCode() );
+        hopArrivalEntity.setDescription( hopArrival.getDescription() );
+        hopArrivalEntity.setDateTime( hopArrival.getDateTime() );
 
-        return recipient1;
+        return hopArrivalEntity;
+    }
+
+    protected List<HopArrivalEntity> hopArrivalListToHopArrivalEntityList(List<HopArrival> list) {
+        if ( list == null ) {
+            return null;
+        }
+
+        List<HopArrivalEntity> list1 = new ArrayList<HopArrivalEntity>( list.size() );
+        for ( HopArrival hopArrival : list ) {
+            list1.add( hopArrivalToHopArrivalEntity( hopArrival ) );
+        }
+
+        return list1;
     }
 }
