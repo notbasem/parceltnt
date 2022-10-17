@@ -18,4 +18,32 @@ public class RecipientEntity {
     private String postalCode;
     private String city;
     private String country;
+
+    /**
+     * Constructor-like functionality to build an Object
+     */
+    public RecipientEntity name(String name) {
+        this.name = name;
+        return this;
+    }
+
+    public RecipientEntity street(String street) {
+        this.street = street;
+        return this;
+    }
+
+    public RecipientEntity postalCode(String postalCode) {
+        this.postalCode = postalCode;
+        return this;
+    }
+
+    public RecipientEntity city(String city) {
+        this.city = city;
+        return this;
+    }
+
+    public RecipientEntity country(String country) {
+        this.country = country;
+        return this;
+    }
 }
