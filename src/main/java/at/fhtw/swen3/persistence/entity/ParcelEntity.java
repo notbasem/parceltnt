@@ -1,6 +1,7 @@
 package at.fhtw.swen3.persistence.entity;
 
-import at.fhtw.swen3.services.dto.HopArrival;
+import at.fhtw.swen3.services.dto.Parcel;
+import at.fhtw.swen3.services.dto.TrackingInformation;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -28,15 +29,38 @@ public class ParcelEntity {
     @JoinColumn(name = "sender_id", referencedColumnName = "id")
     private RecipientEntity sender;
     private String trackingId;
-    private Enum state;
+    private TrackingInformation.StateEnum state;
 
     @OneToMany(mappedBy="fk_parcel")
     private List<HopArrivalEntity> visitedHops = new ArrayList<>();
     @OneToMany(mappedBy="fk_parcel")
     private List<HopArrivalEntity> futureHops = new ArrayList<>();
 
-    public ParcelEntity(Long id, float weight) {
-        this.id = id;
+    /**
+     * Constructor-like functionality to build an Object
+     */
+    public ParcelEntity weight(Float weight) {
         this.weight = weight;
+        return this;
+    }
+
+    public ParcelEntity recipient(RecipientEntity recipientEntity) {
+        this.recipient = recipientEntity;
+        return this;
+    }
+
+    public ParcelEntity sender(RecipientEntity recipientEntity) {
+        this.sender = recipientEntity;
+        return this;
+    }
+
+    public ParcelEntity trackingId(String trackingId) {
+        this.trackingId = trackingId;
+        return this;
+    }
+
+    public ParcelEntity state(TrackingInformation.StateEnum state) {
+        this.state = state;
+        return this;
     }
 }
