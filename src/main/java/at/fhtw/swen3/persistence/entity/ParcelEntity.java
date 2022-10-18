@@ -8,6 +8,10 @@ import lombok.Setter;
 import lombok.ToString;
 
 import javax.persistence.*;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,19 +25,25 @@ public class ParcelEntity {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id", nullable = false)
     private Long id;
+    @Size(min = 0)
     private float weight;
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "recipient_id", referencedColumnName = "id")
+    @NotNull
     private RecipientEntity recipient;
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "sender_id", referencedColumnName = "id")
+    @NotNull
     private RecipientEntity sender;
+    @Pattern(regexp = "^[A-Z0-9]{9}$")
     private String trackingId;
     private TrackingInformation.StateEnum state;
 
     @OneToMany(mappedBy="fk_parcel")
+    @NotNull
     private List<HopArrivalEntity> visitedHops = new ArrayList<>();
     @OneToMany(mappedBy="fk_parcel")
+    @NotNull
     private List<HopArrivalEntity> futureHops = new ArrayList<>();
 
     /**
