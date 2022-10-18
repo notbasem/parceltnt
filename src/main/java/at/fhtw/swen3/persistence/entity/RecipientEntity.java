@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import javax.validation.constraints.Pattern;
 
 @Entity (name = "recipient")
 @Getter
@@ -14,8 +15,11 @@ public class RecipientEntity {
     @Column(name = "id", nullable = false)
     private Long id;
     private String name;
+    @Pattern(regexp = "[a-zA-Zäöüß]+\s[0-9a-zA-Z/]+")
     private String street;
+    @Pattern(regexp = "[A-Z]-[0-9]{4}")
     private String postalCode;
+    @Pattern(regexp = "[A-ZÄÖÜ][a-zäöü]+\\.?\s?([A-ZÄÖÜ][a-zäöüß]+)*")
     private String city;
     private String country;
 
