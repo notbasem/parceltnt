@@ -8,10 +8,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 import javax.persistence.*;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,25 +22,25 @@ public class ParcelEntity {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id", nullable = false)
     private Long id;
-    @Size(min = 0)
+    @DecimalMin(value = "0.0", message = "Minimum weight should be greater than 0.0")
     private float weight;
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "recipient_id", referencedColumnName = "id")
-    @NotNull
+    @NotNull(message = "Recipient cannot be null.")
     private RecipientEntity recipient;
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "sender_id", referencedColumnName = "id")
-    @NotNull
+    @NotNull(message = "Sender cannot be null.")
     private RecipientEntity sender;
     @Pattern(regexp = "^[A-Z0-9]{9}$")
     private String trackingId;
     private TrackingInformation.StateEnum state;
 
     @OneToMany(mappedBy="fk_parcel")
-    @NotNull
+    @NotNull(message = "Visited Hops cannot be null.")
     private List<HopArrivalEntity> visitedHops = new ArrayList<>();
     @OneToMany(mappedBy="fk_parcel")
-    @NotNull
+    @NotNull(message = "Future hops cannot be null.")
     private List<HopArrivalEntity> futureHops = new ArrayList<>();
 
     /**

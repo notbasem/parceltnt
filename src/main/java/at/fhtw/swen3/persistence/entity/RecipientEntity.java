@@ -15,11 +15,11 @@ public class RecipientEntity {
     @Column(name = "id", nullable = false)
     private Long id;
     private String name;
-    @Pattern(regexp = "[a-zA-Zäöüß]+\s[0-9a-zA-Z/]+")
+    @Pattern(regexp = "[A-Za-zÄÖÜäöüß]+\\s[0-9A-Za-zÄÖÜäöüß/]+")
     private String street;
-    @Pattern(regexp = "[A-Z]-[0-9]{4}")
+    @Pattern(regexp = "^A-\\d{4}$")
     private String postalCode;
-    @Pattern(regexp = "[A-ZÄÖÜ][a-zäöü]+\\.?\s?([A-ZÄÖÜ][a-zäöüß]+)*")
+    @Pattern(regexp = "^[A-ZÄÖÜ][a-zäöüß]+\\.?\\s?([A-ZÄÖÜ][a-zäöüß]+)*$")
     private String city;
     private String country;
 
