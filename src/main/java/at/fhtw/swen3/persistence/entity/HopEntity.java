@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import javax.validation.constraints.Pattern;
 
 @Entity(name = "hop")
 @Getter
@@ -17,6 +18,7 @@ public class HopEntity {
     private Long id;
     private String hopType;
     private String code;
+    @Pattern(regexp = "^[A-Za-zÄÖÜäöüß0-9\\s\\-]+$")
     private String description;
     private Integer processingDelayMins;
     private String locationName;
