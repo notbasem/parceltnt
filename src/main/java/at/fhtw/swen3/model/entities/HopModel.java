@@ -1,17 +1,15 @@
-package at.fhtw.swen3.persistence.entity;
+package at.fhtw.swen3.model.entities;
 
-import at.fhtw.swen3.services.dto.GeoCoordinate;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
 import javax.validation.constraints.Pattern;
 
-//@Entity(name = "hop")
+@Entity(name = "hop")
 @Getter
 @Setter
-public class HopEntity {
+public class HopModel {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id", nullable = false)
@@ -24,7 +22,7 @@ public class HopEntity {
     private String locationName;
     @OneToOne
     @JoinColumn(name = "location_coordinate_id")
-    private GeoCoordinateEntity locationCoordinates;
+    private GeoCoordinateModel locationCoordinates;
 
 
 }

@@ -1,4 +1,4 @@
-package at.fhtw.swen3.persistence.entity;
+package at.fhtw.swen3.model.entities;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -10,12 +10,12 @@ import javax.persistence.*;
 import javax.validation.constraints.Pattern;
 import java.time.OffsetDateTime;
 
-//@Entity (name = "hop_arrival")
+@Entity (name = "hop_arrival")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class HopArrivalEntity {
+public class HopArrivalModel {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id", nullable = false)
@@ -27,5 +27,5 @@ public class HopArrivalEntity {
     private OffsetDateTime dateTime;
     @ManyToOne
     @JoinColumn(name="fk_parcel", nullable=false)
-    private ParcelEntity fk_parcel;
+    private ParcelModel fk_parcel;
 }

@@ -1,6 +1,5 @@
-package at.fhtw.swen3.persistence.entity;
+package at.fhtw.swen3.model.entities;
 
-import at.fhtw.swen3.services.dto.Parcel;
 import at.fhtw.swen3.services.dto.TrackingInformation;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -8,16 +7,18 @@ import lombok.Setter;
 import lombok.ToString;
 
 import javax.persistence.*;
-import javax.validation.constraints.*;
+import javax.validation.constraints.DecimalMin;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import java.util.ArrayList;
 import java.util.List;
 
-//@Entity(name = "parcel")
+@Entity(name = "parcel")
 @Getter
 @Setter
 @ToString
 @NoArgsConstructor
-public class ParcelEntity {
+public class ParcelModel {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id", nullable = false)
@@ -27,46 +28,46 @@ public class ParcelEntity {
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "recipient_id", referencedColumnName = "id")
     @NotNull(message = "Recipient cannot be null.")
-    private RecipientEntity recipient;
+    private RecipientModel recipient;
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "sender_id", referencedColumnName = "id")
     @NotNull(message = "Sender cannot be null.")
-    private RecipientEntity sender;
+    private RecipientModel sender;
     @Pattern(regexp = "^[A-Z0-9]{9}$")
     private String trackingId;
     private TrackingInformation.StateEnum state;
 
     @OneToMany(mappedBy="fk_parcel")
     @NotNull(message = "Visited Hops cannot be null.")
-    private List<HopArrivalEntity> visitedHops = new ArrayList<>();
+    private List<HopArrivalModel> visitedHops = new ArrayList<>();
     @OneToMany(mappedBy="fk_parcel")
     @NotNull(message = "Future hops cannot be null.")
-    private List<HopArrivalEntity> futureHops = new ArrayList<>();
+    private List<HopArrivalModel> futureHops = new ArrayList<>();
 
     /**
      * Constructor-like functionality to build an Object
      */
-    public ParcelEntity weight(Float weight) {
+    public ParcelModel weight(Float weight) {
         this.weight = weight;
         return this;
     }
 
-    public ParcelEntity recipient(RecipientEntity recipientEntity) {
-        this.recipient = recipientEntity;
+    public ParcelModel recipient(RecipientModel recipientModel) {
+        this.recipient = recipientModel;
         return this;
     }
 
-    public ParcelEntity sender(RecipientEntity recipientEntity) {
-        this.sender = recipientEntity;
+    public ParcelModel sender(RecipientModel recipientModel) {
+        this.sender = recipientModel;
         return this;
     }
 
-    public ParcelEntity trackingId(String trackingId) {
+    public ParcelModel trackingId(String trackingId) {
         this.trackingId = trackingId;
         return this;
     }
 
-    public ParcelEntity state(TrackingInformation.StateEnum state) {
+    public ParcelModel state(TrackingInformation.StateEnum state) {
         this.state = state;
         return this;
     }
