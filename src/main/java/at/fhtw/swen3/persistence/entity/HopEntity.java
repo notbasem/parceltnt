@@ -12,18 +12,12 @@ import javax.validation.constraints.Pattern;
 @Getter
 @Setter
 public class HopEntity {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id", nullable = false)
-    private Long id;
     private String hopType;
     private String code;
     @Pattern(regexp = "^[A-Za-zÄÖÜäöüß0-9\\s\\-]+$")
     private String description;
     private Integer processingDelayMins;
     private String locationName;
-    @OneToOne
-    @JoinColumn(name = "location_coordinate_id")
     private GeoCoordinateEntity locationCoordinates;
 
 

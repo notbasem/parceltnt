@@ -16,16 +16,10 @@ import java.time.OffsetDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 public class HopArrivalEntity {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id", nullable = false)
-    private Long id;
     @Pattern(regexp = "^[A-Z]{4}\\d{1,4}$")
     private String code;
     private String description;
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
     private OffsetDateTime dateTime;
-    @ManyToOne
-    @JoinColumn(name="fk_parcel", nullable=false)
     private ParcelEntity fk_parcel;
 }

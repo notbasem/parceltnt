@@ -9,6 +9,10 @@ import org.mapstruct.factory.Mappers;
 @Mapper
 public interface TrackingInformationMapper {
     TrackingInformationMapper INSTANCE = Mappers.getMapper(TrackingInformationMapper.class);
+
+    /**
+     * Dto and Entity Mapping
+     */
     @Mapping(source = "trackingInformation.state", target = "state")
     @Mapping(source = "trackingInformation.visitedHops", target = "visitedHops")
     ParcelEntity dtoToEntity (TrackingInformation trackingInformation);

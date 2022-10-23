@@ -18,29 +18,14 @@ import java.util.List;
 @ToString
 @NoArgsConstructor
 public class ParcelEntity {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id", nullable = false)
-    private Long id;
     @DecimalMin(value = "0.0", message = "Minimum weight should be greater than 0.0")
     private float weight;
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "recipient_id", referencedColumnName = "id")
-    @NotNull(message = "Recipient cannot be null.")
     private RecipientEntity recipient;
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "sender_id", referencedColumnName = "id")
-    @NotNull(message = "Sender cannot be null.")
     private RecipientEntity sender;
     @Pattern(regexp = "^[A-Z0-9]{9}$")
     private String trackingId;
     private TrackingInformation.StateEnum state;
-
-    @OneToMany(mappedBy="fk_parcel")
-    @NotNull(message = "Visited Hops cannot be null.")
     private List<HopArrivalEntity> visitedHops = new ArrayList<>();
-    @OneToMany(mappedBy="fk_parcel")
-    @NotNull(message = "Future hops cannot be null.")
     private List<HopArrivalEntity> futureHops = new ArrayList<>();
 
     /**

@@ -10,10 +10,6 @@ import javax.validation.constraints.Pattern;
 @Getter
 @Setter
 public class RecipientEntity {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id", nullable = false)
-    private Long id;
     private String name;
     @Pattern(regexp = "[A-Za-zÄÖÜäöüß]+\\s[0-9A-Za-zÄÖÜäöüß/]+")
     private String street;
