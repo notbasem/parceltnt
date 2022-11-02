@@ -7,15 +7,16 @@ import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import java.time.OffsetDateTime;
 
-@Entity (name = "hop_arrival")
+@Entity
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class HopArrivalModel {
+public class HopArrival {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id", nullable = false)
@@ -24,8 +25,9 @@ public class HopArrivalModel {
     private String code;
     private String description;
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
+    @NotNull
     private OffsetDateTime dateTime;
     @ManyToOne
     @JoinColumn(name="fk_parcel", nullable=false)
-    private ParcelModel fk_parcel;
+    private Parcel fk_parcel;
 }

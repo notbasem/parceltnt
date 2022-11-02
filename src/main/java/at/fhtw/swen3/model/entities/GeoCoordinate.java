@@ -2,15 +2,13 @@ package at.fhtw.swen3.model.entities;
 
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.annotations.Type;
-import org.springframework.data.geo.Point;
 
 import javax.persistence.*;
 
-@Entity(name = "geo_coordinate")
+@Entity
 @Getter
 @Setter
-public class GeoCoordinateModel {
+public class GeoCoordinate {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id", nullable = false)

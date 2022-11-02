@@ -8,10 +8,13 @@ import javax.persistence.*;
 @Entity
 @Getter
 @Setter
-public class Error {
+
+public class WarehouseNextHops {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id", nullable = false)
     private Long id;
-    private String errorMessage;
+    private Integer traveltimeMins;
+    @OneToOne
+    private Hop hop;
 }

@@ -20,7 +20,9 @@ import java.util.List;
 public class ParcelEntity {
     @DecimalMin(value = "0.0", message = "Minimum weight should be greater than 0.0")
     private float weight;
+    @NotNull
     private RecipientEntity recipient;
+    @NotNull
     private RecipientEntity sender;
     @Pattern(regexp = "^[A-Z0-9]{9}$")
     private String trackingId;

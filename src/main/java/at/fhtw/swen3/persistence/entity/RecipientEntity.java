@@ -10,10 +10,11 @@ import javax.validation.constraints.Pattern;
 @Getter
 @Setter
 public class RecipientEntity {
+    @Pattern(regexp = "^[A-ZÄÖÜ][a-zäöüß]+\\.?\\s?([A-ZÄÖÜ][a-zäöüß]+)*$")
     private String name;
     @Pattern(regexp = "[A-Za-zÄÖÜäöüß]+\\s[0-9A-Za-zÄÖÜäöüß/]+")
     private String street;
-    @Pattern(regexp = "^A-\\d{4}$")
+    @Pattern(regexp = "^[AD]-\\d{4}$")
     private String postalCode;
     @Pattern(regexp = "^[A-ZÄÖÜ][a-zäöüß]+\\.?\\s?([A-ZÄÖÜ][a-zäöüß]+)*$")
     private String city;

@@ -1,8 +1,7 @@
 package at.fhtw.swen3.services.mapper;
 
-import at.fhtw.swen3.model.entities.HopModel;
+import at.fhtw.swen3.model.entities.Hop;
 import at.fhtw.swen3.persistence.entity.HopEntity;
-import at.fhtw.swen3.services.dto.Hop;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 
@@ -13,12 +12,12 @@ public interface HopMapper {
     /**
      * Dto and Entity Mapping
      */
-    HopEntity dtoToEntity(Hop hop);
-    Hop entityToDto(HopEntity hopEntity);
+    HopEntity dtoToEntity(at.fhtw.swen3.services.dto.Hop hop);
+    at.fhtw.swen3.services.dto.Hop entityToDto(HopEntity hopEntity);
 
     /**
      * Entity and Model Mapping
      */
-    HopModel entityToModel(HopEntity hopEntity);
-    HopEntity modelToEntity(HopModel hopModel);
+    Hop entityToModel(HopEntity hopEntity);
+    HopEntity modelToEntity(Hop hop);
 }

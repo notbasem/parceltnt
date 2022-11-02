@@ -13,12 +13,12 @@ import javax.validation.constraints.Pattern;
 import java.util.ArrayList;
 import java.util.List;
 
-@Entity(name = "parcel")
+@Entity
 @Getter
 @Setter
 @ToString
 @NoArgsConstructor
-public class ParcelModel {
+public class Parcel {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id", nullable = false)
@@ -28,46 +28,46 @@ public class ParcelModel {
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "recipient_id", referencedColumnName = "id")
     @NotNull(message = "Recipient cannot be null.")
-    private RecipientModel recipient;
+    private Recipient recipient;
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "sender_id", referencedColumnName = "id")
     @NotNull(message = "Sender cannot be null.")
-    private RecipientModel sender;
+    private Recipient sender;
     @Pattern(regexp = "^[A-Z0-9]{9}$")
     private String trackingId;
     private TrackingInformation.StateEnum state;
 
     @OneToMany(mappedBy="fk_parcel")
     @NotNull(message = "Visited Hops cannot be null.")
-    private List<HopArrivalModel> visitedHops = new ArrayList<>();
+    private List<HopArrival> visitedHops = new ArrayList<>();
     @OneToMany(mappedBy="fk_parcel")
     @NotNull(message = "Future hops cannot be null.")
-    private List<HopArrivalModel> futureHops = new ArrayList<>();
+    private List<HopArrival> futureHops = new ArrayList<>();
 
     /**
      * Constructor-like functionality to build an Object
      */
-    public ParcelModel weight(Float weight) {
+    public Parcel weight(Float weight) {
         this.weight = weight;
         return this;
     }
 
-    public ParcelModel recipient(RecipientModel recipientModel) {
-        this.recipient = recipientModel;
+    public Parcel recipient(Recipient recipient) {
+        this.recipient = recipient;
         return this;
     }
 
-    public ParcelModel sender(RecipientModel recipientModel) {
-        this.sender = recipientModel;
+    public Parcel sender(Recipient recipient) {
+        this.sender = recipient;
         return this;
     }
 
-    public ParcelModel trackingId(String trackingId) {
+    public Parcel trackingId(String trackingId) {
         this.trackingId = trackingId;
         return this;
     }
 
-    public ParcelModel state(TrackingInformation.StateEnum state) {
+    public Parcel state(TrackingInformation.StateEnum state) {
         this.state = state;
         return this;
     }

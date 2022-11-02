@@ -6,10 +6,10 @@ import lombok.Setter;
 import javax.persistence.*;
 import javax.validation.constraints.Pattern;
 
-@Entity(name = "hop")
+@Entity
 @Getter
 @Setter
-public class HopModel {
+public class Hop {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id", nullable = false)
@@ -21,8 +21,7 @@ public class HopModel {
     private Integer processingDelayMins;
     private String locationName;
     @OneToOne
-    @JoinColumn(name = "location_coordinate_id")
-    private GeoCoordinateModel locationCoordinates;
+    private GeoCoordinate locationCoordinates;
 
 
 }
