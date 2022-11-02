@@ -1,4 +1,4 @@
-package at.fhtw.swen3.persistence.entity;
+package at.fhtw.swen3.model.entities;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -7,19 +7,27 @@ import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import java.time.OffsetDateTime;
 
-//@Entity (name = "hop_arrival")
+@Entity
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class HopArrivalEntity {
+public class HopArrival {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id", nullable = false)
+    private Long id;
     @Pattern(regexp = "^[A-Z]{4}\\d{1,4}$")
     private String code;
     private String description;
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
+    @NotNull
     private OffsetDateTime dateTime;
-    private ParcelEntity fk_parcel;
+    @ManyToOne
+    @JoinColumn(name="fk_parcel", nullable=false)
+    private Parcel fk_parcel;
 }

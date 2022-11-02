@@ -8,6 +8,10 @@ import org.mapstruct.factory.Mappers;
 @Mapper
 public interface NewParcelInfoMapper {
     NewParcelInfoMapper INSTANCE = Mappers.getMapper(NewParcelInfoMapper.class);
+
+    /**
+     * Dto and Entity Mapping
+     */
     ParcelEntity dtoToEntity (NewParcelInfo newParcelInfo);
     NewParcelInfo entityToDto (ParcelEntity parcelEntity);
 }
