@@ -1,4 +1,4 @@
-package at.fhtw.swen3.persistence.entity;
+package at.fhtw.swen3.persistence.entities;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -6,10 +6,14 @@ import lombok.Setter;
 import javax.persistence.*;
 import javax.validation.constraints.Pattern;
 
-//@Entity (name = "recipient")
+@Entity
 @Getter
 @Setter
 public class RecipientEntity {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id", nullable = false)
+    private Long id;
     @Pattern(regexp = "^[A-ZÄÖÜ][a-zäöüß]+\\.?\\s?([A-ZÄÖÜ][a-zäöüß]+)*$")
     private String name;
     @Pattern(regexp = "[A-Za-zÄÖÜäöüß]+\\s[0-9A-Za-zÄÖÜäöüß/]+")

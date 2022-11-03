@@ -1,4 +1,4 @@
-package at.fhtw.swen3.model.entities;
+package at.fhtw.swen3.persistence.entities;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -8,10 +8,11 @@ import javax.persistence.*;
 @Entity
 @Getter
 @Setter
-public class Error {
+public class GeoCoordinateEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id", nullable = false)
     private Long id;
-    private String errorMessage;
+    private Double lat;
+    private Double lon;
 }
