@@ -1,4 +1,4 @@
-package at.fhtw.swen3.model.entities;
+package at.fhtw.swen3.persistence.entities;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -11,8 +11,8 @@ import java.util.List;
 @Entity
 @Getter
 @Setter
-public class Warehouse extends Hop {
+public class WarehouseEntity extends HopEntity {
     private Integer level;
     @OneToMany
-    private List<WarehouseNextHops> nextHops = new ArrayList<>();
+    private List<WarehouseNextHopsEntity> nextHops = new ArrayList<>();
 }

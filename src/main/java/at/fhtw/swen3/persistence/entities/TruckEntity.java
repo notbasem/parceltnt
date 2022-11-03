@@ -1,9 +1,11 @@
-package at.fhtw.swen3.persistence.entity;
+package at.fhtw.swen3.persistence.entities;
 
 import lombok.Getter;
 import lombok.Setter;
 
-//@Entity(name = "truck")
+import javax.persistence.Entity;
+
+@Entity
 @Getter
 @Setter
 public class TruckEntity extends HopEntity{

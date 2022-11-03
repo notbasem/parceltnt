@@ -1,15 +1,14 @@
-package at.fhtw.swen3.model.entities;
+package at.fhtw.swen3.persistence.entities;
 
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
 
 @Entity
 @Getter
 @Setter
-
-public class Transferwarehouse extends Hop {
+public class TransferwarehouseEntity extends HopEntity{
     private String regionGeoJson;
     private String logisticsPartner;
     private String logisticsPartnerUrl;

@@ -1,9 +1,11 @@
 package at.fhtw.swen3.services.mapper;
 
-import at.fhtw.swen3.persistence.entity.WarehouseNextHopsEntity;
+import at.fhtw.swen3.persistence.entities.WarehouseNextHopsEntity;
 import at.fhtw.swen3.services.dto.WarehouseNextHops;
+import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 
+@Mapper
 public interface WarehouseNextHopsMapper {
     WarehouseNextHopsMapper INSTANCE = Mappers.getMapper(WarehouseNextHopsMapper.class);
 
@@ -12,10 +14,4 @@ public interface WarehouseNextHopsMapper {
      */
     WarehouseNextHopsEntity dtoToEntity(WarehouseNextHops warehouseNextHops);
     WarehouseNextHops entityToDto(WarehouseNextHopsEntity warehouseNextHopsEntity);
-
-    /**
-     * Entity and Model Mapping
-     */
-    at.fhtw.swen3.model.entities.WarehouseNextHops entityToModel(WarehouseNextHopsEntity warehouseNextHopsEntity);
-    WarehouseNextHopsEntity modelToEntity(at.fhtw.swen3.model.entities.WarehouseNextHops warehouseNextHops);
 }

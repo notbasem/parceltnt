@@ -1,7 +1,7 @@
 package at.fhtw.swen3.services.mapper;
 
-import at.fhtw.swen3.model.entities.HopArrival;
-import at.fhtw.swen3.persistence.entity.HopArrivalEntity;
+import at.fhtw.swen3.persistence.entities.HopArrivalEntity;
+import at.fhtw.swen3.services.dto.HopArrival;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 
@@ -12,13 +12,6 @@ public interface HopArrivalMapper {
     /**
      * DTO and Entity Mapping
      */
-    HopArrivalEntity dtoToEntity(at.fhtw.swen3.services.dto.HopArrival hopArrival);
-    at.fhtw.swen3.services.dto.HopArrival entityToDto(HopArrivalEntity hopArrivalEntity);
-
-    /**
-     * Entity and Model Mapping
-     */
-    HopArrival entityToModel(HopArrivalEntity hopArrivalEntity);
-    HopArrivalEntity modelToEntity(HopArrival hopArrival);
-
+    HopArrivalEntity dtoToEntity(HopArrival hopArrival);
+    HopArrival entityToDto(HopArrivalEntity hopArrivalEntity);
 }
