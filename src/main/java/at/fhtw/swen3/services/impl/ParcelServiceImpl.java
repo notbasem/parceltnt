@@ -5,6 +5,7 @@ import at.fhtw.swen3.persistence.repositories.ParcelRepository;
 import at.fhtw.swen3.services.ParcelService;
 import at.fhtw.swen3.services.dto.Parcel;
 import at.fhtw.swen3.services.mapper.ParcelMapper;
+import at.fhtw.swen3.services.validation.Validator;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,11 +17,16 @@ import java.util.List;
 @Service
 @Slf4j
 public class ParcelServiceImpl implements ParcelService {
+    @Autowired
     private ParcelRepository repo;
+
+    @Autowired
+    private Validator validator;
 
     @Override
     public void submitNewParcel(Parcel parcel) {
         ParcelEntity parcelEntity = ParcelMapper.INSTANCE.dtoToEntity(parcel);
+        this.validator.validate(parcelEntity);
         this.repo.save(parcelEntity);
     }
 
