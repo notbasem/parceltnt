@@ -4,6 +4,7 @@ package at.fhtw.swen3.controller.rest;
 import at.fhtw.swen3.controller.ParcelApi;
 import at.fhtw.swen3.services.dto.NewParcelInfo;
 import at.fhtw.swen3.services.dto.Parcel;
+import at.fhtw.swen3.services.dto.TrackingInformation;
 import at.fhtw.swen3.services.impl.ParcelServiceImpl;
 import io.swagger.v3.oas.annotations.Parameter;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,6 +39,7 @@ public class ParcelApiController implements ParcelApi {
         return Optional.ofNullable(request);
     }
 
+    @Override
     @RequestMapping(
             method = RequestMethod.POST,
             value = "/parcel",
@@ -51,4 +53,23 @@ public class ParcelApiController implements ParcelApi {
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
+    @Override
+    public ResponseEntity<Void> reportParcelDelivery(String trackingId) {
+        return new ResponseEntity<>(HttpStatus.ACCEPTED);
+    }
+
+    @Override
+    public ResponseEntity<Void> reportParcelHop(String trackingId, String code) {
+        return new ResponseEntity<>(HttpStatus.ACCEPTED);
+    }
+
+    @Override
+    public ResponseEntity<TrackingInformation> trackParcel(String trackingId) {
+        return new ResponseEntity<>(HttpStatus.ACCEPTED);
+    }
+
+    @Override
+    public ResponseEntity<NewParcelInfo> transitionParcel(String trackingId, Parcel parcel) {
+        return new ResponseEntity<>(HttpStatus.ACCEPTED);
+    }
 }
