@@ -11,7 +11,7 @@ import javax.validation.constraints.*;
 import java.util.ArrayList;
 import java.util.List;
 
-@Entity
+@Entity(name = "parcel")
 @Getter
 @Setter
 @ToString

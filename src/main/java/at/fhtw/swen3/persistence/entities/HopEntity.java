@@ -7,7 +7,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
-@Entity
+@Entity(name = "hop")
 @Getter
 @Setter
 public class HopEntity {

@@ -11,7 +11,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import java.time.OffsetDateTime;
 
-@Entity
+@Entity(name = "hop_arrival")
 @Getter
 @Setter
 @NoArgsConstructor

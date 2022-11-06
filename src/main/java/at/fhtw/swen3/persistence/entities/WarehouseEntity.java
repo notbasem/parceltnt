@@ -8,7 +8,7 @@ import javax.persistence.OneToMany;
 import java.util.ArrayList;
 import java.util.List;
 
-@Entity
+@Entity(name = "warehouse")
 @Getter
 @Setter
 public class WarehouseEntity extends HopEntity {

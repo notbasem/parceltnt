@@ -5,7 +5,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 
-@Entity
+@Entity(name = "warehouse_next_hops")
 @Getter
 @Setter
 

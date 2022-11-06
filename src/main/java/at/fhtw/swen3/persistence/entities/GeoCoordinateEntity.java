@@ -5,7 +5,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 
-@Entity
+@Entity(name = "geo_coordinate")
 @Getter
 @Setter
 public class GeoCoordinateEntity {
