@@ -16,7 +16,7 @@ public class RecipientEntity {
     private Long id;
     @Pattern(regexp = "^[A-ZÄÖÜ][a-zäöüß]+\\.?\\s?([A-ZÄÖÜ][a-zäöüß]+)*$")
     private String name;
-    @Pattern(regexp = "[A-Za-zÄÖÜäöüß]+\\s[0-9A-Za-zÄÖÜäöüß/]+")
+    @Pattern(regexp = "[A-Za-zÄÖÜäöüß]+\\s[0-9A-Za-zÄÖÜäöüß/\\s]+")
     private String street;
     @Pattern(regexp = "^[AD]-\\d{4}$")
     private String postalCode;
