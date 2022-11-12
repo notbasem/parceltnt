@@ -23,11 +23,11 @@ public class ParcelEntity {
     private Long id;
     @DecimalMin(value = "0.0", message = "Minimum weight should be greater than 0.0")
     private float weight;
-    @OneToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "recipient_id", referencedColumnName = "id")
     @NotNull(message = "Recipient cannot be null.")
     private RecipientEntity recipient;
-    @OneToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "sender_id", referencedColumnName = "id")
     @NotNull(message = "Sender cannot be null.")
     private RecipientEntity sender;

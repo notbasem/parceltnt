@@ -55,7 +55,7 @@ public class WarehouseApiController implements WarehouseApi {
                 }
             }
         });
-        return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
+        return new ResponseEntity<>(HttpStatus.ACCEPTED);
 
     }
 
