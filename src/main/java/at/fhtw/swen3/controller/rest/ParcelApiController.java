@@ -8,6 +8,7 @@ import at.fhtw.swen3.services.dto.NewParcelInfo;
 import at.fhtw.swen3.services.dto.Parcel;
 import at.fhtw.swen3.services.dto.TrackingInformation;
 import at.fhtw.swen3.services.mapper.ParcelMapper;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,6 +20,7 @@ import org.springframework.web.context.request.NativeWebRequest;
 import java.util.Optional;
 import javax.annotation.Generated;
 
+@Slf4j
 @Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2022-09-24T13:08:29.856611Z[Etc/UTC]")
 @Controller
 public class ParcelApiController implements ParcelApi {
@@ -27,6 +29,7 @@ public class ParcelApiController implements ParcelApi {
     private final ParcelService parcelService;
 
     public ParcelApiController(NativeWebRequest request, ParcelService parcelService) {
+        log.info(this.getClass().getSimpleName());
         this.request = request;
         this.parcelService = parcelService;
     }

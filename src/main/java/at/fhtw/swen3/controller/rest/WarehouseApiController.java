@@ -7,6 +7,7 @@ import at.fhtw.swen3.services.dto.Warehouse;
 import at.fhtw.swen3.controller.ApiUtil;
 import at.fhtw.swen3.controller.WarehouseApi;
 import io.swagger.v3.oas.annotations.Parameter;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -21,6 +22,7 @@ import java.util.Optional;
 import javax.annotation.Generated;
 import javax.validation.Valid;
 
+@Slf4j
 @Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2022-09-24T13:08:29.856611Z[Etc/UTC]")
 @Controller
 public class WarehouseApiController implements WarehouseApi {
@@ -29,6 +31,7 @@ public class WarehouseApiController implements WarehouseApi {
     private final WarehouseService warehouseService;
 
     public WarehouseApiController(NativeWebRequest request, WarehouseService warehouseService) {
+        log.info(this.getClass().getSimpleName());
         this.request = request;
         this.warehouseService = warehouseService;
     }

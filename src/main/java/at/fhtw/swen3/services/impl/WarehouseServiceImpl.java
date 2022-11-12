@@ -19,16 +19,17 @@ public class WarehouseServiceImpl implements WarehouseService {
 
     @Override
     public List<Warehouse> getWarehouse() {
+        log.info("getWarehouse()");
         return null;
     }
 
     @Override
     public void importWarehouses() {
-
+        log.info("importWarehouses()");
     }
 
     @Override
     public void exportWarehouse() {
-
+        log.info("exportWarehouse()");
     }
 }

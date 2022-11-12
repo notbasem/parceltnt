@@ -24,6 +24,7 @@ public class ParcelServiceImpl implements ParcelService {
 
     @Override
     public void submitNewParcel(ParcelEntity parcelEntity) {
+        log.info("submitNewParcel() with parcel: " + parcelEntity);
         this.validator.validate(parcelEntity);
         parcelEntity.setTrackingId("PYJRB4HZ6");
         this.recipientRepository.save(parcelEntity.getSender());
@@ -33,16 +34,19 @@ public class ParcelServiceImpl implements ParcelService {
 
     @Override
     public void updateParcel(String id, ParcelEntity parcelEntity) {
+        log.info("updateParcel() with id=" + id + " , parcel: " + parcelEntity);
         this.parcelRepository.save(parcelEntity);
     }
 
     @Override
     public void deleteParcel(String id) {
+        log.info("deleteParcel() with id=" + id);
         this.parcelRepository.deleteById(Long.parseLong(id));
     }
 
     @Override
     public List<Parcel> getParcels() {
+        log.info("getParcels()");
         List<Parcel> parcelDtos = new ArrayList<>();
         List<ParcelEntity> parcelEntities = this.parcelRepository.findAll();
         for(ParcelEntity parcelEntity : parcelEntities) {
