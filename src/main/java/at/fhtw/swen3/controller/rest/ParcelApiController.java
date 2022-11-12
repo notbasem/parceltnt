@@ -26,7 +26,6 @@ public class ParcelApiController implements ParcelApi {
     private final NativeWebRequest request;
     private final ParcelService parcelService;
 
-    @Autowired
     public ParcelApiController(NativeWebRequest request, ParcelService parcelService) {
         this.request = request;
         this.parcelService = parcelService;

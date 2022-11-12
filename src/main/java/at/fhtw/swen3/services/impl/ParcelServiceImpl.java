@@ -7,29 +7,25 @@ import at.fhtw.swen3.services.ParcelService;
 import at.fhtw.swen3.services.dto.Parcel;
 import at.fhtw.swen3.services.mapper.ParcelMapper;
 import at.fhtw.swen3.services.validation.Validator;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 
-
 @Service
+@RequiredArgsConstructor
 @Slf4j
 public class ParcelServiceImpl implements ParcelService {
     private final Validator validator;
     private final RecipientRepository recipientRepository;
     private final ParcelRepository parcelRepository;
 
-    public ParcelServiceImpl(RecipientRepository recipientRepository, ParcelRepository parcelRepository, Validator validator) {
-        this.validator = validator;
-        this.recipientRepository = recipientRepository;
-        this.parcelRepository = parcelRepository;
-    }
-
     @Override
     public void submitNewParcel(ParcelEntity parcelEntity) {
         this.validator.validate(parcelEntity);
+        parcelEntity.setTrackingId("PYJRB4HZ6");
         this.recipientRepository.save(parcelEntity.getSender());
         this.recipientRepository.save(parcelEntity.getRecipient());
         this.parcelRepository.save(parcelEntity);

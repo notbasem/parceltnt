@@ -1,12 +1,12 @@
 package at.fhtw.swen3.controller.rest;
 
 
+import at.fhtw.swen3.services.WarehouseService;
 import at.fhtw.swen3.services.dto.Hop;
 import at.fhtw.swen3.services.dto.Warehouse;
 import at.fhtw.swen3.controller.ApiUtil;
 import at.fhtw.swen3.controller.WarehouseApi;
 import io.swagger.v3.oas.annotations.Parameter;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -26,10 +26,11 @@ import javax.validation.Valid;
 public class WarehouseApiController implements WarehouseApi {
 
     private final NativeWebRequest request;
+    private final WarehouseService warehouseService;
 
-    @Autowired
-    public WarehouseApiController(NativeWebRequest request) {
+    public WarehouseApiController(NativeWebRequest request, WarehouseService warehouseService) {
         this.request = request;
+        this.warehouseService = warehouseService;
     }
 
     @Override
