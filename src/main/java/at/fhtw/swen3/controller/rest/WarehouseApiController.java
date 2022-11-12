@@ -1,12 +1,13 @@
 package at.fhtw.swen3.controller.rest;
 
 
+import at.fhtw.swen3.services.WarehouseService;
 import at.fhtw.swen3.services.dto.Hop;
 import at.fhtw.swen3.services.dto.Warehouse;
 import at.fhtw.swen3.controller.ApiUtil;
 import at.fhtw.swen3.controller.WarehouseApi;
 import io.swagger.v3.oas.annotations.Parameter;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -21,15 +22,18 @@ import java.util.Optional;
 import javax.annotation.Generated;
 import javax.validation.Valid;
 
+@Slf4j
 @Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2022-09-24T13:08:29.856611Z[Etc/UTC]")
 @Controller
 public class WarehouseApiController implements WarehouseApi {
 
     private final NativeWebRequest request;
+    private final WarehouseService warehouseService;
 
-    @Autowired
-    public WarehouseApiController(NativeWebRequest request) {
+    public WarehouseApiController(NativeWebRequest request, WarehouseService warehouseService) {
+        log.info(this.getClass().getSimpleName());
         this.request = request;
+        this.warehouseService = warehouseService;
     }
 
     @Override
