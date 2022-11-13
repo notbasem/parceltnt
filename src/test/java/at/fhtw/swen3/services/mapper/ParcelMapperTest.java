@@ -12,12 +12,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
 class ParcelMapperTest {
-    private static final Logger log = LoggerFactory.getLogger(ParcelMapperTest.class.getSimpleName());
-
     @Test
     void dtoToEntity() {
         //List<HopArrivalEntity> hopArrivals = new ArrayList<>().add(new HopArrivalEntity(123L, "hallo", ));
-        log.info("Test dtoToEntity()");
         final Parcel parcel = new Parcel()
                 .weight(2.0f)
                 .sender(new Recipient()
@@ -36,7 +33,6 @@ class ParcelMapperTest {
 
     @Test
     void dtoToEntityEmptyStreet() {
-        log.info("Test dtoToEntityEmptyStreet()");
         final Parcel parcel = new Parcel()
                 .weight(2.0f)
                 .sender(new Recipient()
@@ -53,8 +49,6 @@ class ParcelMapperTest {
 
     @Test
     void entityToDto() {
-        log.info("Test entityToDto()");
-
         final ParcelEntity parcelEntity = new ParcelEntity()
                 .weight(2.0f)
                 .sender(new RecipientEntity()

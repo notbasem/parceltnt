@@ -1,13 +1,16 @@
 package at.fhtw.swen3.persistence.entities;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
 
-@Entity(name = "geo_coordinate")
+@Entity
+@Table(name = "geo_coordinate")
 @Getter
 @Setter
+@NoArgsConstructor
 public class GeoCoordinateEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
