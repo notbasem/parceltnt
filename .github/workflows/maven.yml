@@ -22,9 +22,5 @@ jobs:
         java-version: '11'
         distribution: 'temurin'
         cache: maven
-    - env:
-        parceltntuser: ${{ secrets.PARCELTNTUSER }}
-        parceltntpw: ${{ secrets.PARCELTNTPW }}
-        parceltnturl: ${{ secrets.PARCELTNTURL }}
     - name: Build with Maven
       run: mvn -B package --file pom.xml
