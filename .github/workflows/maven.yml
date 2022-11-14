@@ -22,6 +22,7 @@ jobs:
         java-version: '11'
         distribution: 'temurin'
         cache: maven
+    - env:
         parceltntuser: ${{ secrets.PARCELTNTUSER }}
         parceltntpw: ${{ secrets.PARCELTNTPW }}
         parceltnturl: ${{ secrets.PARCELTNTURL }}
