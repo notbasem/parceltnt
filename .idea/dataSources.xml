@@ -8,5 +8,12 @@
       <jdbc-url>jdbc:postgresql://localhost:5432/parceltnt</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
+    <data-source source="LOCAL" name="postgres@aws" uuid="8e368d1b-fc3e-4efe-872b-16d5d5c95f22">
+      <driver-ref>postgresql</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.postgresql.Driver</jdbc-driver>
+      <jdbc-url>jdbc:postgresql://parceltnt.cvxevqctlbwo.us-east-1.rds.amazonaws.com:5432/parceltnt</jdbc-url>
+      <working-dir>$ProjectFileDir$</working-dir>
+    </data-source>
   </component>
 </project>
