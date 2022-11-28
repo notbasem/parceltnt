@@ -5,7 +5,8 @@ import lombok.Setter;
 
 import javax.persistence.*;
 
-@Entity(name = "transferwarehouse")
+@Entity
+@Table(name = "transferwarehouse")
 @Getter
 @Setter
 public class TransferwarehouseEntity extends HopEntity{
