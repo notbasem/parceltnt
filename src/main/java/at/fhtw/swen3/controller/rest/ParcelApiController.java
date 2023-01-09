@@ -50,8 +50,8 @@ public class ParcelApiController implements ParcelApi {
     public ResponseEntity<NewParcelInfo> submitParcel(Parcel parcel) {
         // Map parcel to parcelEntity
         ParcelEntity parcelEntity = ParcelMapper.INSTANCE.dtoToEntity(parcel);
-        this.parcelService.submitNewParcel(parcelEntity);
-        return new ResponseEntity<>(HttpStatus.CREATED);
+        NewParcelInfo newParcelInfo = this.parcelService.submitNewParcel(parcelEntity);
+        return new ResponseEntity<>(newParcelInfo, HttpStatus.CREATED);
     }
 
     @Override
