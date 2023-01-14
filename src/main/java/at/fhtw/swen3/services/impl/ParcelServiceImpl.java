@@ -8,15 +8,16 @@ import at.fhtw.swen3.persistence.repositories.RecipientRepository;
 import at.fhtw.swen3.services.ParcelService;
 import at.fhtw.swen3.services.dto.NewParcelInfo;
 import at.fhtw.swen3.services.dto.Parcel;
+import at.fhtw.swen3.services.dto.TrackingInformation;
 import at.fhtw.swen3.services.mapper.NewParcelInfoMapper;
 import at.fhtw.swen3.services.mapper.ParcelMapper;
+import at.fhtw.swen3.services.mapper.TrackingInformationMapper;
 import at.fhtw.swen3.services.validation.Validator;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-import java.util.UUID;
 
 @RequiredArgsConstructor
 @Slf4j
@@ -37,6 +38,13 @@ public class ParcelServiceImpl implements ParcelService {
         this.recipientRepository.save(parcelEntity.getRecipient());
         this.parcelRepository.save(parcelEntity);
         return NewParcelInfoMapper.INSTANCE.entityToDto(parcelEntity);
+    }
+
+    @Override
+    public TrackingInformation getParcelByTrackingId(String trackingId) {
+        log.info("getParcelByTrackingId() with trackingId: " + trackingId);
+        ParcelEntity parcelEntity = this.parcelRepository.findByTrackingId(trackingId);
+        return TrackingInformationMapper.INSTANCE.entityToDto(parcelEntity);
     }
 
     @Override

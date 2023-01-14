@@ -1,6 +1,7 @@
 package at.fhtw.swen3.controller.rest;
 
 
+import at.fhtw.swen3.controller.ApiUtil;
 import at.fhtw.swen3.controller.ParcelApi;
 import at.fhtw.swen3.persistence.entities.ParcelEntity;
 import at.fhtw.swen3.services.ParcelService;
@@ -8,11 +9,14 @@ import at.fhtw.swen3.services.dto.NewParcelInfo;
 import at.fhtw.swen3.services.dto.Parcel;
 import at.fhtw.swen3.services.dto.TrackingInformation;
 import at.fhtw.swen3.services.mapper.ParcelMapper;
+import io.swagger.v3.oas.annotations.Parameter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.context.request.NativeWebRequest;
@@ -64,9 +68,16 @@ public class ParcelApiController implements ParcelApi {
         return new ResponseEntity<>(HttpStatus.ACCEPTED);
     }
 
+
     @Override
-    public ResponseEntity<TrackingInformation> trackParcel(String trackingId) {
-        return new ResponseEntity<>(HttpStatus.ACCEPTED);
+    @RequestMapping(
+            method = RequestMethod.GET,
+            value = "/parcel/{trackingId}",
+            produces = { "application/json" }
+    )
+    public ResponseEntity<TrackingInformation> trackParcel(@Parameter(name = "trackingId", description = "", required = true) @PathVariable("trackingId") String trackingId) {
+        TrackingInformation trackingInformation = this.parcelService.getParcelByTrackingId(trackingId);
+        return new ResponseEntity<>(trackingInformation, HttpStatus.OK);
     }
 
     @Override
