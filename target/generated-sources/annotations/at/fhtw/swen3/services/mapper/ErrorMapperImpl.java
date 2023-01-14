@@ -1,11 +1,12 @@
 package at.fhtw.swen3.services.mapper;
 
 import at.fhtw.swen3.persistence.entities.ErrorEntity;
+import at.fhtw.swen3.services.dto.Error;
 import javax.annotation.processing.Generated;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2022-11-18T11:33:06+0100",
+    date = "2023-01-14T18:35:14+0100",
     comments = "version: 1.4.2.Final, compiler: javac, environment: Java 17.0.5 (Amazon.com Inc.)"
 )
 public class ErrorMapperImpl implements ErrorMapper {
@@ -18,6 +19,8 @@ public class ErrorMapperImpl implements ErrorMapper {
 
         ErrorEntity errorEntity = new ErrorEntity();
 
+        errorEntity.setErrorMessage( error.getErrorMessage() );
+
         return errorEntity;
     }
 
@@ -28,6 +31,8 @@ public class ErrorMapperImpl implements ErrorMapper {
         }
 
         Error error = new Error();
+
+        error.setErrorMessage( errorEntity.getErrorMessage() );
 
         return error;
     }
