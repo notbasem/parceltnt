@@ -8,6 +8,7 @@ import javax.persistence.*;
 @Entity
 @Getter
 @Setter
+@Table(name = "truck")
 public class TruckEntity extends HopEntity{
     private String regionGeoJson;
     private String numberPlate;

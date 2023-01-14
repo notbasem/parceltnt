@@ -9,12 +9,17 @@ import javax.persistence.*;
 @Table(name = "warehouse_next_hops")
 @Getter
 @Setter
-
 public class WarehouseNextHopsEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id", nullable = false)
+    @Column(nullable = false)
+    private Long id;
+
+    @Column
     private Integer traveltimeMins;
-    @OneToOne
+
+    @ManyToOne
+    @JoinColumn(name="fk_hop")
     private HopEntity hopEntity;
+
 }

@@ -10,10 +10,6 @@ import javax.persistence.*;
 @Getter
 @Setter
 public class TransferwarehouseEntity extends HopEntity{
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id", nullable = false)
-    private Long id;
     private String regionGeoJson;
     private String logisticsPartner;
     private String logisticsPartnerUrl;

@@ -11,6 +11,7 @@ import javax.validation.constraints.Pattern;
 @Table(name = "hop")
 @Getter
 @Setter
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public class HopEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

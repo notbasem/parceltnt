@@ -4,6 +4,8 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,12 +13,13 @@ import java.util.List;
 @Table(name = "warehouse")
 @Getter
 @Setter
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public class WarehouseEntity extends HopEntity {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id", nullable = false)
-    private Long id;
     private Integer level;
-    @OneToMany
-    private List<WarehouseNextHopsEntity> nextHops = new ArrayList<>();
+
+    @Column
+    @NotNull
+    @NotEmpty(message = "nextHops cannot be null")
+    @OneToMany(mappedBy="hopEntity")
+    private List<WarehouseNextHopsEntity> nextHops;
 }
