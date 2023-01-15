@@ -23,6 +23,7 @@ import org.springframework.web.context.request.NativeWebRequest;
 
 import java.util.Optional;
 import javax.annotation.Generated;
+import javax.validation.constraints.Pattern;
 
 @Slf4j
 @Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2022-09-24T13:08:29.856611Z[Etc/UTC]")
@@ -58,9 +59,16 @@ public class ParcelApiController implements ParcelApi {
         return new ResponseEntity<>(newParcelInfo, HttpStatus.CREATED);
     }
 
+    @RequestMapping(
+            method = RequestMethod.POST,
+            value = "/parcel/{trackingId}/reportDelivery/",
+            produces = { "application/json" }
+    )
     @Override
-    public ResponseEntity<Void> reportParcelDelivery(String trackingId) {
-        return new ResponseEntity<>(HttpStatus.ACCEPTED);
+    public ResponseEntity<Void> reportParcelDelivery(@Parameter(name = "trackingId", description = "", required = true) @PathVariable("trackingId") String trackingId) {
+        // Map parcel to parcelEntity
+        parcelService.reportParcelDelivery(trackingId);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @Override

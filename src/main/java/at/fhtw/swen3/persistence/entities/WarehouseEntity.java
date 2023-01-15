@@ -2,6 +2,7 @@ package at.fhtw.swen3.persistence.entities;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
@@ -14,12 +15,13 @@ import java.util.List;
 @Getter
 @Setter
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+@ToString
 public class WarehouseEntity extends HopEntity {
     private Integer level;
 
     @Column
     @NotNull
     @NotEmpty(message = "nextHops cannot be null")
-    @OneToMany(mappedBy="hopEntity")
+    @OneToMany(mappedBy="hopEntity", fetch= FetchType.EAGER)
     private List<WarehouseNextHopsEntity> nextHops;
 }

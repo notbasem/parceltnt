@@ -1,11 +1,13 @@
 package at.fhtw.swen3.controller.rest;
 
 
+import at.fhtw.swen3.persistence.entities.WarehouseEntity;
 import at.fhtw.swen3.services.WarehouseService;
 import at.fhtw.swen3.services.dto.Hop;
 import at.fhtw.swen3.services.dto.Warehouse;
 import at.fhtw.swen3.controller.ApiUtil;
 import at.fhtw.swen3.controller.WarehouseApi;
+import at.fhtw.swen3.services.mapper.WarehouseMapper;
 import io.swagger.v3.oas.annotations.Parameter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -74,7 +76,9 @@ public class WarehouseApiController implements WarehouseApi {
     public ResponseEntity<Void> importWarehouses(
             @Parameter(name = "Warehouse", description = "", required = true) @Valid @RequestBody Warehouse warehouse
     ) {
-        return new ResponseEntity<>(HttpStatus.CREATED);
+        WarehouseEntity warehouseEntity = WarehouseMapper.INSTANCE.dtoToEntity(warehouse);
+        warehouseService.importWarehouses(warehouseEntity);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @Override

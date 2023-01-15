@@ -2,6 +2,7 @@ package at.fhtw.swen3.persistence.entities;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 import javax.persistence.*;
 
@@ -9,6 +10,7 @@ import javax.persistence.*;
 @Table(name = "warehouse_next_hops")
 @Getter
 @Setter
+@ToString
 public class WarehouseNextHopsEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -18,8 +20,6 @@ public class WarehouseNextHopsEntity {
     @Column
     private Integer traveltimeMins;
 
-    @ManyToOne
-    @JoinColumn(name="fk_hop")
+    @OneToOne
     private HopEntity hopEntity;
-
 }

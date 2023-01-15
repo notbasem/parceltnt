@@ -70,6 +70,17 @@ public class ParcelServiceImpl implements ParcelService {
         return parcelDtos;
     }
 
+    @Override
+    public void reportParcelDelivery(String trackingId) {
+        ParcelEntity parcelEntity = parcelRepository.findByTrackingId(trackingId);
+        if (parcelEntity == null) {
+            log.error("Parcel with given trackingId: " + trackingId + " not found");
+            return;
+        }
+        parcelEntity.setState(TrackingInformation.StateEnum.DELIVERED);
+        parcelRepository.save(parcelEntity);
+    }
+
     private String generateTrackingId() {
         String allowedchars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
         StringBuilder result = new StringBuilder();

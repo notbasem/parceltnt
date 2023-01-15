@@ -6,7 +6,7 @@ import org.mapstruct.DecoratedWith;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 
-@Mapper
+@Mapper(uses = {GeoCoordinateMapper.class})
 @DecoratedWith(HopMapperDecorator.class)
 public interface HopMapper {
     HopMapper INSTANCE = Mappers.getMapper(HopMapper.class);

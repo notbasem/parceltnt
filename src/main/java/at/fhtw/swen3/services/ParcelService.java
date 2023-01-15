@@ -13,4 +13,6 @@ public interface ParcelService {
     public abstract void updateParcel(String id, ParcelEntity parcelEntity);
     public abstract void deleteParcel(String id);
     public abstract List<Parcel> getParcels();
+
+    void reportParcelDelivery(String trackingId);
 }
