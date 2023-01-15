@@ -11,7 +11,7 @@ import javax.validation.constraints.Size;
 @Getter
 @Setter
 public class TransferwarehouseEntity extends HopEntity{
-    @Lob
+    @Column(columnDefinition = "text")
     private String regionGeoJson;
     private String logisticsPartner;
     private String logisticsPartnerUrl;

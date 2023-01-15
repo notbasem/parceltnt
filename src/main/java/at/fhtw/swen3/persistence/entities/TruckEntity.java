@@ -11,7 +11,7 @@ import javax.validation.constraints.Size;
 @Setter
 @Table(name = "truck")
 public class TruckEntity extends HopEntity{
-    @Lob
+    @Column(columnDefinition = "text")
     private String regionGeoJson;
     private String numberPlate;
 
