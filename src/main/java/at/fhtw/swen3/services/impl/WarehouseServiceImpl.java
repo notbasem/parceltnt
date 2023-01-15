@@ -36,10 +36,11 @@ public class WarehouseServiceImpl implements WarehouseService {
         log.info("importWarehouses()");
         this.validator.validate(warehouseEntity);
 
-        if (warehouseRepository.findAll().isEmpty()) {
-            /**
-             *  TODO: Delete all Warehouses, WarehouseNextHops, Trucks, Transferwarehouses
-             */
+        if (!warehouseRepository.findAll().isEmpty()) {
+            warehouseRepository.deleteAll();
+            warehouseNextHopsRepository.deleteAll();
+            transferwarehouseRepository.deleteAll();
+            truckRepository.deleteAll();
         }
 
         System.out.println(warehouseEntity);
