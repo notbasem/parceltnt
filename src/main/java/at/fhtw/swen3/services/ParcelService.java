@@ -15,4 +15,6 @@ public interface ParcelService {
     public abstract List<Parcel> getParcels();
 
     void reportParcelDelivery(String trackingId);
+
+    NewParcelInfo transitionParcel(String trackingId, ParcelEntity parcelEntity);
 }

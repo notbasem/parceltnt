@@ -17,12 +17,14 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.context.request.NativeWebRequest;
 
 import java.util.Optional;
 import javax.annotation.Generated;
+import javax.validation.Valid;
 import javax.validation.constraints.Pattern;
 
 @Slf4j
@@ -89,7 +91,16 @@ public class ParcelApiController implements ParcelApi {
     }
 
     @Override
-    public ResponseEntity<NewParcelInfo> transitionParcel(String trackingId, Parcel parcel) {
-        return new ResponseEntity<>(HttpStatus.ACCEPTED);
+    @RequestMapping(
+            method = RequestMethod.POST,
+            value = "/parcel/{trackingId}",
+            produces = { "application/json" },
+            consumes = { "application/json" }
+    )
+    public ResponseEntity<NewParcelInfo> transitionParcel(@Parameter(name = "trackingId", description = "", required = true) @PathVariable("trackingId") String trackingId, Parcel parcel) {
+        // Map parcel to parcelEntity
+        ParcelEntity parcelEntity = ParcelMapper.INSTANCE.dtoToEntity(parcel);
+        NewParcelInfo newParcelInfo = this.parcelService.transitionParcel(trackingId, parcelEntity);
+        return new ResponseEntity<>(newParcelInfo, HttpStatus.OK);
     }
 }
