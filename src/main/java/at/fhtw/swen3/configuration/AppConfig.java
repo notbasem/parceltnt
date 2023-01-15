@@ -10,8 +10,8 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class AppConfig {
     @Bean
-    public ParcelServiceImpl parcelService(Validator validator, RecipientRepository recipientRepository, ParcelRepository parcelRepository) {
-        return new ParcelServiceImpl(validator, recipientRepository, parcelRepository);
+    public ParcelServiceImpl parcelService(Validator validator, RecipientRepository recipientRepository, ParcelRepository parcelRepository, TruckRepository truckRepository, TransferwarehouseRepository transferwarehouseRepository, WarehouseRepository warehouseRepository) {
+        return new ParcelServiceImpl(validator, recipientRepository, parcelRepository, truckRepository, transferwarehouseRepository, warehouseRepository);
     }
 
     @Bean

@@ -4,8 +4,7 @@ import at.fhtw.swen3.gps.service.impl.BingEncodingProxy;
 import at.fhtw.swen3.persistence.entities.GeoCoordinateEntity;
 import at.fhtw.swen3.persistence.entities.HopEntity;
 import at.fhtw.swen3.persistence.entities.ParcelEntity;
-import at.fhtw.swen3.persistence.repositories.ParcelRepository;
-import at.fhtw.swen3.persistence.repositories.RecipientRepository;
+import at.fhtw.swen3.persistence.repositories.*;
 import at.fhtw.swen3.services.ParcelService;
 import at.fhtw.swen3.services.dto.NewParcelInfo;
 import at.fhtw.swen3.services.dto.Parcel;
@@ -26,6 +25,9 @@ public class ParcelServiceImpl implements ParcelService {
     private final Validator validator;
     private final RecipientRepository recipientRepository;
     private final ParcelRepository parcelRepository;
+    private final TruckRepository truckRepository;
+    private final TransferwarehouseRepository transferwarehouseRepository;
+    private final WarehouseRepository warehouseRepository;
 
     @Override
     public NewParcelInfo submitNewParcel(ParcelEntity parcelEntity) {
@@ -110,6 +112,14 @@ public class ParcelServiceImpl implements ParcelService {
     public void reportParcelHop(String trackingId, String code) {
         ParcelEntity parcelEntity = parcelRepository.findByTrackingId(trackingId);
 
+        if (truckRepository.findByCode(code) != null) {
+            parcelEntity.setState(TrackingInformation.StateEnum.INTRUCKDELIVERY);
+        } else if (transferwarehouseRepository.findByCode(code) != null) {
+            parcelEntity.setState(TrackingInformation.StateEnum.TRANSFERRED);
+        } else if(warehouseRepository.findByCode(code) != null) {
+            parcelEntity.setState(TrackingInformation.StateEnum.INTRANSPORT);
+        }
+        parcelRepository.save(parcelEntity);
     }
 
     private String generateTrackingId() {
