@@ -1,12 +1,11 @@
 package at.fhtw.swen3.services.impl;
 
-import at.fhtw.swen3.persistence.entities.TransferwarehouseEntity;
-import at.fhtw.swen3.persistence.entities.TruckEntity;
-import at.fhtw.swen3.persistence.entities.WarehouseEntity;
-import at.fhtw.swen3.persistence.entities.WarehouseNextHopsEntity;
+import at.fhtw.swen3.persistence.entities.*;
 import at.fhtw.swen3.persistence.repositories.*;
 import at.fhtw.swen3.services.WarehouseService;
+import at.fhtw.swen3.services.dto.Hop;
 import at.fhtw.swen3.services.dto.Warehouse;
+import at.fhtw.swen3.services.mapper.HopMapper;
 import at.fhtw.swen3.services.mapper.WarehouseMapper;
 import at.fhtw.swen3.services.validation.Validator;
 import lombok.RequiredArgsConstructor;
@@ -25,11 +24,19 @@ public class WarehouseServiceImpl implements WarehouseService {
     private final WarehouseNextHopsRepository warehouseNextHopsRepository;
 
     @Override
-    public List<Warehouse> getWarehouse() {
+    public Hop getWarehouse(String code) {
         log.info("getWarehouse()");
+        HopEntity hopEntity = null;
 
+        if (truckRepository.findByCode(code) != null) {
+            hopEntity = truckRepository.findByCode(code);
+        } else if (transferwarehouseRepository.findByCode(code) != null) {
+            hopEntity = transferwarehouseRepository.findByCode(code);
+        } else if(warehouseRepository.findByCode(code) != null) {
+            hopEntity = warehouseRepository.findByCode(code);
+        }
 
-        return null;
+        return HopMapper.INSTANCE.entityToDto(hopEntity);
     }
 
     @Override
