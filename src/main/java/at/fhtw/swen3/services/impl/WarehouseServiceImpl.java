@@ -50,13 +50,12 @@ public class WarehouseServiceImpl implements WarehouseService {
     }
 
     private void saveHopsRecursive(List<WarehouseNextHopsEntity> nextHops) {
-        System.out.println(nextHops);
         for (WarehouseNextHopsEntity nextHop : nextHops) {
-            geoCoordinateRepository.save(nextHop.getHopEntity().getLocationCoordinates());
-            switch (nextHop.getHopEntity().getHopType()) {
-                case "warehouse" -> saveHopsRecursive(((WarehouseEntity) nextHop.getHopEntity()).getNextHops());
-                case "truck" -> truckRepository.save((TruckEntity) nextHop.getHopEntity());
-                case "transferwarehouse" -> transferwarehouseRepository.save((TransferwarehouseEntity) nextHop.getHopEntity());
+            geoCoordinateRepository.save(nextHop.getHop().getLocationCoordinates());
+            switch (nextHop.getHop().getHopType()) {
+                case "warehouse" -> saveHopsRecursive(((WarehouseEntity) nextHop.getHop()).getNextHops());
+                case "truck" -> truckRepository.save((TruckEntity) nextHop.getHop());
+                case "transferwarehouse" -> transferwarehouseRepository.save((TransferwarehouseEntity) nextHop.getHop());
             }
             warehouseNextHopsRepository.save(nextHop);
         }
