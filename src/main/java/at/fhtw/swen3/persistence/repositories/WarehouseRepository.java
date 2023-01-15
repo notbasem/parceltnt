@@ -9,4 +9,6 @@ import java.util.Optional;
 @Repository
 public interface WarehouseRepository extends JpaRepository<WarehouseEntity, Long> {
     Optional<WarehouseEntity> findById(Long id);
+    WarehouseEntity findByLevel(int level);
+    WarehouseEntity findByCode(String code);
 }

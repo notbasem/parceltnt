@@ -2,9 +2,9 @@ package at.fhtw.swen3.services.impl;
 
 import at.fhtw.swen3.gps.service.impl.BingEncodingProxy;
 import at.fhtw.swen3.persistence.entities.GeoCoordinateEntity;
+import at.fhtw.swen3.persistence.entities.HopEntity;
 import at.fhtw.swen3.persistence.entities.ParcelEntity;
-import at.fhtw.swen3.persistence.repositories.ParcelRepository;
-import at.fhtw.swen3.persistence.repositories.RecipientRepository;
+import at.fhtw.swen3.persistence.repositories.*;
 import at.fhtw.swen3.services.ParcelService;
 import at.fhtw.swen3.services.dto.NewParcelInfo;
 import at.fhtw.swen3.services.dto.Parcel;
@@ -25,14 +25,22 @@ public class ParcelServiceImpl implements ParcelService {
     private final Validator validator;
     private final RecipientRepository recipientRepository;
     private final ParcelRepository parcelRepository;
+    private final TruckRepository truckRepository;
+    private final TransferwarehouseRepository transferwarehouseRepository;
+    private final WarehouseRepository warehouseRepository;
 
     @Override
     public NewParcelInfo submitNewParcel(ParcelEntity parcelEntity) {
         log.info("submitNewParcel() with parcel: " + parcelEntity);
         this.validator.validate(parcelEntity);
         parcelEntity.setTrackingId(generateTrackingId());
-        GeoCoordinateEntity geoCoordinateEntity = new BingEncodingProxy().encodeAddress(parcelEntity.getSender().getStreet() + ", " + parcelEntity.getSender().getPostalCode() + " " + parcelEntity.getSender().getCity() + ", " + parcelEntity.getSender().getCountry());
-        System.out.println(geoCoordinateEntity.getLat() + " : " + geoCoordinateEntity.getLon());
+        parcelEntity.setState(TrackingInformation.StateEnum.PICKUP);
+
+        GeoCoordinateEntity geoCoordinateSender = new BingEncodingProxy().encodeAddress(parcelEntity.getSender().getStreet() + ", " + parcelEntity.getSender().getPostalCode() + " " + parcelEntity.getSender().getCity() + ", " + parcelEntity.getSender().getCountry());
+        System.out.println(geoCoordinateSender.getLat() + " : " + geoCoordinateSender.getLon());
+
+        GeoCoordinateEntity geoCoordinateRecipient = new BingEncodingProxy().encodeAddress(parcelEntity.getRecipient().getStreet() + ", " + parcelEntity.getRecipient().getPostalCode() + " " + parcelEntity.getRecipient().getCity() + ", " + parcelEntity.getRecipient().getCountry());
+        System.out.println(geoCoordinateRecipient.getLat() + " : " + geoCoordinateRecipient.getLon());
 
         this.recipientRepository.save(parcelEntity.getSender());
         this.recipientRepository.save(parcelEntity.getRecipient());
@@ -68,6 +76,50 @@ public class ParcelServiceImpl implements ParcelService {
             parcelDtos.add(ParcelMapper.INSTANCE.entityToDto(parcelEntity));
         }
         return parcelDtos;
+    }
+
+    @Override
+    public void reportParcelDelivery(String trackingId) {
+        ParcelEntity parcelEntity = parcelRepository.findByTrackingId(trackingId);
+        if (parcelEntity == null) {
+            log.error("Parcel with given trackingId: " + trackingId + " not found");
+            return;
+        }
+        parcelEntity.setState(TrackingInformation.StateEnum.DELIVERED);
+        parcelRepository.save(parcelEntity);
+    }
+
+    @Override
+    public NewParcelInfo transitionParcel(String trackingId, ParcelEntity parcelEntity) {
+        log.info("transitionParcel() with trackingId: " + trackingId + " and parcel: " + parcelEntity);
+        this.validator.validate(parcelEntity);
+        parcelEntity.setTrackingId(trackingId);
+        parcelEntity.setState(TrackingInformation.StateEnum.PICKUP);
+
+        GeoCoordinateEntity geoCoordinateSender = new BingEncodingProxy().encodeAddress(parcelEntity.getSender().getStreet() + ", " + parcelEntity.getSender().getPostalCode() + " " + parcelEntity.getSender().getCity() + ", " + parcelEntity.getSender().getCountry());
+        System.out.println(geoCoordinateSender.getLat() + " : " + geoCoordinateSender.getLon());
+
+        GeoCoordinateEntity geoCoordinateRecipient = new BingEncodingProxy().encodeAddress(parcelEntity.getRecipient().getStreet() + ", " + parcelEntity.getRecipient().getPostalCode() + " " + parcelEntity.getRecipient().getCity() + ", " + parcelEntity.getRecipient().getCountry());
+        System.out.println(geoCoordinateRecipient.getLat() + " : " + geoCoordinateRecipient.getLon());
+
+        this.recipientRepository.save(parcelEntity.getSender());
+        this.recipientRepository.save(parcelEntity.getRecipient());
+        this.parcelRepository.save(parcelEntity);
+        return NewParcelInfoMapper.INSTANCE.entityToDto(parcelEntity);
+    }
+
+    @Override
+    public void reportParcelHop(String trackingId, String code) {
+        ParcelEntity parcelEntity = parcelRepository.findByTrackingId(trackingId);
+
+        if (truckRepository.findByCode(code) != null) {
+            parcelEntity.setState(TrackingInformation.StateEnum.INTRUCKDELIVERY);
+        } else if (transferwarehouseRepository.findByCode(code) != null) {
+            parcelEntity.setState(TrackingInformation.StateEnum.TRANSFERRED);
+        } else if(warehouseRepository.findByCode(code) != null) {
+            parcelEntity.setState(TrackingInformation.StateEnum.INTRANSPORT);
+        }
+        parcelRepository.save(parcelEntity);
     }
 
     private String generateTrackingId() {

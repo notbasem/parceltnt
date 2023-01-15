@@ -35,10 +35,10 @@ public class ParcelEntity {
     @Pattern(regexp = "^[A-Z0-9]{9}$")
     private String trackingId;
     private TrackingInformation.StateEnum state;
-    @OneToMany(mappedBy="fk_parcel")
+    @OneToMany(mappedBy="fk_parcel", cascade = CascadeType.ALL)
     @NotNull(message = "Visited Hops cannot be null.")
     private List<HopArrivalEntity> visitedHops = new ArrayList<>();
-    @OneToMany(mappedBy="fk_parcel")
+    @OneToMany(mappedBy="fk_parcel", cascade = CascadeType.ALL)
     @NotNull(message = "Future hops cannot be null.")
     private List<HopArrivalEntity> futureHops = new ArrayList<>();
 
