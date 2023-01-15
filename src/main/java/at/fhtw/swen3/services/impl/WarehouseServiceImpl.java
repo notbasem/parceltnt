@@ -7,6 +7,7 @@ import at.fhtw.swen3.persistence.entities.WarehouseNextHopsEntity;
 import at.fhtw.swen3.persistence.repositories.*;
 import at.fhtw.swen3.services.WarehouseService;
 import at.fhtw.swen3.services.dto.Warehouse;
+import at.fhtw.swen3.services.mapper.WarehouseMapper;
 import at.fhtw.swen3.services.validation.Validator;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -43,11 +44,16 @@ public class WarehouseServiceImpl implements WarehouseService {
             truckRepository.deleteAll();
         }
 
-        System.out.println(warehouseEntity);
-
         saveHopsRecursive(warehouseEntity.getNextHops());
         geoCoordinateRepository.save(warehouseEntity.getLocationCoordinates());
         warehouseRepository.save(warehouseEntity);
+    }
+
+    @Override
+    public Warehouse exportWarehouses() {
+        WarehouseEntity warehouseEntity = warehouseRepository.findByLevel(0);
+        System.out.println(warehouseEntity);
+        return WarehouseMapper.INSTANCE.entityToDto(warehouseEntity);
     }
 
     private void saveHopsRecursive(List<WarehouseNextHopsEntity> nextHops) {
@@ -60,10 +66,5 @@ public class WarehouseServiceImpl implements WarehouseService {
             }
             warehouseNextHopsRepository.save(nextHop);
         }
-    }
-
-    @Override
-    public void exportWarehouse() {
-        log.info("exportWarehouse()");
     }
 }

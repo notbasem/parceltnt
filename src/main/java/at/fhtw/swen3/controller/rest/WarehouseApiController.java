@@ -83,6 +83,7 @@ public class WarehouseApiController implements WarehouseApi {
 
     @Override
     public ResponseEntity<Warehouse> exportWarehouses() {
-        return new ResponseEntity<>(HttpStatus.ACCEPTED);
+        Warehouse warehouse = warehouseService.exportWarehouses();
+        return new ResponseEntity<>(warehouse, HttpStatus.OK);
     }
 }

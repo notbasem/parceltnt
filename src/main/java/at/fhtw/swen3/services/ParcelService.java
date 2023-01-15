@@ -17,4 +17,6 @@ public interface ParcelService {
     void reportParcelDelivery(String trackingId);
 
     NewParcelInfo transitionParcel(String trackingId, ParcelEntity parcelEntity);
+
+    void reportParcelHop(String trackingId, String code);
 }

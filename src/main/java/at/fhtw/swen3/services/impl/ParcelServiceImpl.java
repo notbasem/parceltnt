@@ -2,6 +2,7 @@ package at.fhtw.swen3.services.impl;
 
 import at.fhtw.swen3.gps.service.impl.BingEncodingProxy;
 import at.fhtw.swen3.persistence.entities.GeoCoordinateEntity;
+import at.fhtw.swen3.persistence.entities.HopEntity;
 import at.fhtw.swen3.persistence.entities.ParcelEntity;
 import at.fhtw.swen3.persistence.repositories.ParcelRepository;
 import at.fhtw.swen3.persistence.repositories.RecipientRepository;
@@ -103,6 +104,12 @@ public class ParcelServiceImpl implements ParcelService {
         this.recipientRepository.save(parcelEntity.getRecipient());
         this.parcelRepository.save(parcelEntity);
         return NewParcelInfoMapper.INSTANCE.entityToDto(parcelEntity);
+    }
+
+    @Override
+    public void reportParcelHop(String trackingId, String code) {
+        ParcelEntity parcelEntity = parcelRepository.findByTrackingId(trackingId);
+
     }
 
     private String generateTrackingId() {

@@ -24,7 +24,7 @@ public class HopEntity {
     private String description;
     private Integer processingDelayMins;
     private String locationName;
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @NotNull(message = "GeoCoordinates cannot be null")
     private GeoCoordinateEntity locationCoordinates;
 

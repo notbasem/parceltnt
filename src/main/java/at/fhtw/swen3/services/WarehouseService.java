@@ -8,5 +8,5 @@ import java.util.List;
 public interface WarehouseService {
     public abstract List<Warehouse> getWarehouse();
     public abstract void importWarehouses(WarehouseEntity warehouseEntity);
-    public abstract void exportWarehouse();
+    public abstract Warehouse exportWarehouses();
 }

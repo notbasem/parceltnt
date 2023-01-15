@@ -4,9 +4,10 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 @Entity
-@Table(name = "warehouse_next_hops")
+@Table(name = "warehousenext_hops")
 @Getter
 @Setter
 public class WarehouseNextHopsEntity {
@@ -18,7 +19,9 @@ public class WarehouseNextHopsEntity {
     @Column
     private Integer traveltimeMins;
 
+    @NotNull
     @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "hop_id")
     private HopEntity hop;
 
 

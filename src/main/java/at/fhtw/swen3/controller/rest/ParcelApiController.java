@@ -74,8 +74,13 @@ public class ParcelApiController implements ParcelApi {
     }
 
     @Override
+    @RequestMapping(
+            method = RequestMethod.POST,
+            value = "/parcel/{trackingId}/reportHop/{code}",
+            produces = { "application/json" }
+    )
     public ResponseEntity<Void> reportParcelHop(String trackingId, String code) {
-        return new ResponseEntity<>(HttpStatus.ACCEPTED);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
 

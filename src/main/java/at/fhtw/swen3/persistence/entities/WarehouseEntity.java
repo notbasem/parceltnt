@@ -1,6 +1,8 @@
 package at.fhtw.swen3.persistence.entities;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
@@ -13,13 +15,15 @@ import java.util.List;
 @Getter
 @Setter
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+@AllArgsConstructor
+@NoArgsConstructor
 public class WarehouseEntity extends HopEntity {
     private Integer level;
 
     @Column
     @NotNull
     @NotEmpty(message = "nextHops cannot be null")
-    @OneToMany(mappedBy= "hop", fetch= FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.EAGER)
     private List<WarehouseNextHopsEntity> nextHops;
 
     @Override
