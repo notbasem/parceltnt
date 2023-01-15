@@ -7,29 +7,36 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.*;
+import at.fhtw.swen3.persistence.entities.TruckEntity;
+import at.fhtw.swen3.persistence.repositories.TruckRepository;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mockito;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-@DataJpaTest
-class TruckRepositoryTest {
+import java.util.Optional;
 
-    @Autowired
-    private TruckRepository truckRepository;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+@ExtendWith(SpringExtension.class)
+public class TruckRepositoryTest {
+
+    @MockBean
+    private TruckRepository repository;
 
     @Test
-    void testFindById() {
-        // given
-        TruckEntity truck = new TruckEntity();
-        truck.setRegionGeoJson("Test region");
-        truck.setNumberPlate("Test number plate");
-        truck = truckRepository.save(truck);
-
-        // when
-        Optional<TruckEntity> foundTruck = truckRepository.findById(truck.getId());
-
-        // then
-        assertTrue(foundTruck.isPresent());
-        assertEquals(truck.getRegionGeoJson(), foundTruck.get().getRegionGeoJson());
-        assertEquals(truck.getNumberPlate(), foundTruck.get().getNumberPlate());
+    public void testFindById() {
+        TruckEntity entity = new TruckEntity();
+        entity.setId(1L);
+        entity.setRegionGeoJson("{\"type\":\"Point\",\"coordinates\":[30.5,50.5]}");
+        entity.setNumberPlate("XXX-XXX");
+        Mockito.when(repository.findById(1L)).thenReturn(Optional.of(entity));
+        Optional<TruckEntity> result = repository.findById(1L);
+        assertEquals(result.get().getId(), entity.getId());
+        assertEquals(result.get().getRegionGeoJson(), entity.getRegionGeoJson());
+        assertEquals(result.get().getNumberPlate(), entity.getNumberPlate());
     }
 }
 

@@ -15,8 +15,8 @@ public class HopArrivalMapperTest {
     @Test
     public void testDtoToEntityMapping() {
         HopArrival hopArrival = new HopArrival();
-        hopArrival.setCode("ABCD123");
-        hopArrival.setDescription("Hop arrival at ABCD location");
+        hopArrival.setCode("A-1210");
+        hopArrival.setDescription("Hop arrival at 1210 location");
         hopArrival.setDateTime(OffsetDateTime.now());
 
         HopArrivalEntity hopArrivalEntity = HopArrivalMapper.INSTANCE.dtoToEntity(hopArrival);
@@ -28,8 +28,8 @@ public class HopArrivalMapperTest {
     @Test
     public void testEntityToDtoMapping() {
         HopArrivalEntity hopArrivalEntity = new HopArrivalEntity();
-        hopArrivalEntity.setCode("ABCD123");
-        hopArrivalEntity.setDescription("Hop arrival at ABCD location");
+        hopArrivalEntity.setCode("A-1210");
+        hopArrivalEntity.setDescription("Hop arrival at 1210 location");
         hopArrivalEntity.setDateTime(OffsetDateTime.now());
 
         HopArrival hopArrival = HopArrivalMapper.INSTANCE.entityToDto(hopArrivalEntity);

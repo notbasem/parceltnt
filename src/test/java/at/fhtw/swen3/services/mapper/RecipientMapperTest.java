@@ -9,11 +9,11 @@ import org.junit.jupiter.api.Test;
 
 public class RecipientMapperTest {
 
-    private static final String NAME = "John Doe";
-    private static final String STREET = "123 Main St";
-    private static final String POSTAL_CODE = "12345";
-    private static final String CITY = "Anytown";
-    private static final String COUNTRY = "USA";
+    private static final String NAME = "Ahmed Barakat";
+    private static final String STREET = "Am Schoepfwerkt";
+    private static final String POSTAL_CODE = "A-1120";
+    private static final String CITY = "Wien";
+    private static final String COUNTRY = "Austria";
 
     @Test
     public void dtoToEntityTest() {
